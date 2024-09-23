@@ -3,6 +3,25 @@ import { asyncHandler } from "../utils/asyncHandler.js";
 import { User } from "../models/user.model.js"
 import { apiResponse } from "../utils/apiResponse.js"
 
+
+const generateAccessTokenAndRefreshToken = async (userId) => {
+    try {
+        const user = await User.findById(userId);
+        
+        const accessToken = user.generateAccessToken();
+        const refreshToken = user.generateRefreshToken();
+        
+        user.refreshToken = refreshToken;
+        user.save({validateBeforeSave: false});
+        
+        return {accessToken, refreshToken}
+    } 
+    
+    catch (error) {
+        throw new apiError(500, "Something went wrong while generating access token and refresh token.")    
+    }
+}
+
 const registerUser = asyncHandler( async (request, response) => {
     const {email, fullname, password} = request.body;
     console.log("email:- ", email);
@@ -52,4 +71,60 @@ const registerUser = asyncHandler( async (request, response) => {
 
 });
 
-export {registerUser};
+const loginUser = asyncHandler(async (request, response) => {
+    const {email, password} = request.body;
+
+    if(!email && !password){
+        throw new apiError(400, "All fields are required.")
+    }
+
+    const user = await User.findOne({
+        $or: [{email}]
+    })
+
+    if(!user){
+        throw new apiError(404, "User does not exist.")
+    }
+
+    const isPasswordValid = user.isPasswordCorrect(password);
+
+    if(!isPasswordValid){
+        throw new apiError(400, "Password is incorrect.")
+    }
+
+    const {accessToken, refreshToken} = generateAccessTokenAndRefreshToken(user._id);
+
+    const loggedInUser = await User.findById(user._id).select("-password -refreshToken");
+
+    const options = {
+        htppOnly: true,
+        secure: true
+    }
+
+    return response
+    .status(200)
+    .cookie("accessToken", accessToken)
+    .cookie("refreshToken", refreshToken)
+    .json(
+        new apiResponse(200, {user: loggedInUser, accessToken, refreshToken}, "User logged in successfully.")
+    )
+
+});
+
+const logoutUser = asyncHandler(async (request, response) => {
+    await User.findByIdAndUpdate(request.user._id, {$set: {refreshToken: undefined}, new: true});
+
+    const options = {
+        httpOnly: true, // by default jo hai server par cookies ko edit karne ke permission hoti hai, lekin httpOnly and secure ko true karne se ab cookies ko edit nahin kar sakta koi bhi, ab bas server hi modify kar sakta hai cookies ko
+        secure: true
+    }
+
+    return response
+    .status(200)
+    .clearCookie("accessToken", options)
+    .clearCookie("refreshToken", options)
+    .json(new apiResponse(200, {}, "User logged out successfully."))
+
+});
+
+export {registerUser, loginUser, logoutUser};
