@@ -52,13 +52,13 @@ userSchema.methods.isPasswordCorrect = async function(password){
 };
 
 userSchema.methods.generateAccessToken = async function(){
-    const token = jwt.sign({_id: this._id, email: this.email, fullname: this.fullname}, process.env.ACCESS_TOKEN_SECRET,  {expiresIn: process.env.ACCESS_TOKEN_EXPIRY });
-    return token;
+    const accessToken = jwt.sign({_id: this._id, email: this.email, fullname: this.fullname}, process.env.ACCESS_TOKEN_SECRET,  {expiresIn: process.env.ACCESS_TOKEN_EXPIRY });
+    return accessToken;
 };
 
 userSchema.methods.generateRefreshToken = async function () {
-    const token = jwt.sign({ _id: this._id}, process.env.REFRESH_TOKEN_SECRET, {expiresIn: process.env.REFRESH_TOKEN_EXPIRY});
-    return token;
+    const refreshToken = jwt.sign({ _id: this._id}, process.env.REFRESH_TOKEN_SECRET, {expiresIn: process.env.REFRESH_TOKEN_EXPIRY});
+    return refreshToken;
   };
 
 
