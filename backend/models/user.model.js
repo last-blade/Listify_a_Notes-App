@@ -60,7 +60,7 @@ userSchema.methods.generateAccessToken = async function(){
 userSchema.methods.generateRefreshToken = async function () {
     const refreshToken = jwt.sign({ _id: this._id}, process.env.REFRESH_TOKEN_SECRET, {expiresIn: process.env.REFRESH_TOKEN_EXPIRY});
     return refreshToken;
-  };
+};
 
 
 

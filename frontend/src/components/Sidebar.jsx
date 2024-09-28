@@ -1,12 +1,17 @@
-// Sidebar.js
-import React, { useState } from 'react';
+import React from 'react';
 import { RxHamburgerMenu } from 'react-icons/rx';
 import { MdUpcoming } from 'react-icons/md';
 import { CgCalendarToday } from 'react-icons/cg';
 import { FaRegCalendarAlt, FaSignOutAlt } from 'react-icons/fa';
 import { LuPlus } from 'react-icons/lu';
 
-function Sidebar({hideSidebar}) {
+function Sidebar({ hideSidebar, toggleCreateTaskVisibility }) { // Destructure the handlers from props
+
+    // Handler for "Add a new list" click
+    const handleAddNewList = (e) => {
+        e.preventDefault(); // Prevent default anchor behavior
+        toggleCreateTaskVisibility(); // Toggle the visibility of Createtask
+    };
 
     return (
         <div className='w-64 font-semibold fixed top-0 left-0 h-full bg-white shadow-md'>
@@ -16,7 +21,9 @@ function Sidebar({hideSidebar}) {
                     {/* Header */}
                     <div className='flex items-center justify-between mt-5'>
                         <h1 className='text-lg font-bold'>Menu</h1>
-                        <div className='cursor-pointer' onClick={hideSidebar}><RxHamburgerMenu size={20} /></div>
+                        <div className='cursor-pointer' onClick={hideSidebar}>
+                            <RxHamburgerMenu size={20} />
+                        </div>
                     </div>
                     
                     {/* Search Input */}
@@ -45,7 +52,13 @@ function Sidebar({hideSidebar}) {
                             <h1 className='cursor-pointer'>Today</h1>
                             <h1 className='cursor-pointer'>My List</h1>
                             <div>
-                                <a href="#" className='flex items-center gap-3'><LuPlus /> Add new list</a>
+                                {/* Changed from <a> to <button> for better semantics */}
+                                <button 
+                                    className='flex items-center gap-3 focus:outline-none' 
+                                    onClick={handleAddNewList}
+                                >
+                                    <LuPlus /> Add new list
+                                </button>
                             </div>
                         </div>
                     </div>

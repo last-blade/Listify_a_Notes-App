@@ -15,6 +15,11 @@ function Login() {
     async function submitHandler(e) {
         e.preventDefault();
 
+        if(!user.email || !user.password){
+            toast.error("All fields are required.");
+            return;
+        }
+
         try {
             const response = await axios.post('http://localhost:8000/api/v1/user/login', 
                 {

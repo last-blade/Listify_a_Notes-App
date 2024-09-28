@@ -21,6 +21,11 @@ function Signup() {
             toast.error("Password mismatch");
             return;
         }
+
+        if(!user.fullname || !user.email || user.password || user.confirmPassword){
+            toast.error("All fields are required.");
+            return;
+        }
     
         try {
             const response = await axios.post(
@@ -46,7 +51,7 @@ function Signup() {
     
 
   return (
-    <div className='h-screen flex justify-center items-center border border-red-500'>
+    <div className='h-screen flex justify-center items-center'>
         <div className='space-y-4'>
             <div className='flex justify-center'>
                     <h1 className='text-3xl font-bold'>Sign up</h1>
