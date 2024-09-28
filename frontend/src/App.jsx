@@ -1,13 +1,15 @@
 import { useState } from 'react'
 import Login from './components/Login'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import Signup from './components/Signup'
+import Homepage from './components/Homepage'
 
 function App() {
 
   const route = createBrowserRouter([
     {
       path: "/",
-      element: <Login/>
+      element: <Homepage/>
     },
 
     {
@@ -17,7 +19,7 @@ function App() {
 
     {
       path: "/signup",
-      element: <Login/>
+      element: <Signup/>
     }
   ])
 
