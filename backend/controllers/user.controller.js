@@ -2,7 +2,6 @@ import { apiError } from "../utils/apiError.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 import { User } from "../models/user.model.js"
 import { apiResponse } from "../utils/apiResponse.js"
-import { Task } from "../models/task.model.js";
 
 
 
@@ -140,26 +139,6 @@ const logoutUser = asyncHandler(async (request, response) => {
 
 });
 
-const createTask = asyncHandler(async (request, response) => {
 
-    const {title, content} = request.body;
-    // console.log('User in request:', request.user);
 
-    const user = await User.findById(request.user);
-    // console.log(user)
-    const task = await Task.create({
-        title,
-        content,
-        owner: user._id
-    });
-
-    request.user.allTasks.push(task._id);
-    await request.user.save();
-
-    const populatedTask = await Task.findById(task._id).populate('owner', '-password -refreshToken');
-
-    return response.status(201).json(new apiResponse(201, populatedTask, "Task created."));
-
-});
-
-export {registerUser, loginUser, logoutUser, createTask};
+export {registerUser, loginUser, logoutUser};
