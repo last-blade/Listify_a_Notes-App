@@ -2,8 +2,13 @@ import axios from 'axios';
 import React, { useState } from 'react'
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux'
+import { setAccessToken } from '../../redux/user.slice';
+
 
 function Login() {
+
+    const dispatch = useDispatch();
 
     const navigate = useNavigate();
 
@@ -32,7 +37,9 @@ function Login() {
                 }
             )
             
-            console.log("Response:- ", response)
+            // console.log("Response:- ", response)
+            // console.log("Accesstoke:- ", response.data.data.accessToken);
+            dispatch(setAccessToken(response.data.data.accessToken));
             
             toast.success(response.data.message);
             navigate("/");

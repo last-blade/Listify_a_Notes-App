@@ -22,7 +22,7 @@ function Signup() {
             return;
         }
 
-        if(!user.fullname || !user.email || user.password || user.confirmPassword){
+        if(!user.fullname || !user.email || !user.password || !user.confirmPassword){
             toast.error("All fields are required.");
             return;
         }

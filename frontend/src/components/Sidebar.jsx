@@ -4,14 +4,35 @@ import { MdUpcoming } from 'react-icons/md';
 import { CgCalendarToday } from 'react-icons/cg';
 import { FaRegCalendarAlt, FaSignOutAlt } from 'react-icons/fa';
 import { LuPlus } from 'react-icons/lu';
+import axios from 'axios';
+import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 
-function Sidebar({ hideSidebar, toggleCreateTaskVisibility }) { // Destructure the handlers from props
+function Sidebar({ hideSidebar, toggleCreateTaskVisibility }) {
 
-    // Handler for "Add a new list" click
+    const navigate = useNavigate();
+
     const handleAddNewList = (e) => {
-        e.preventDefault(); // Prevent default anchor behavior
-        toggleCreateTaskVisibility(); // Toggle the visibility of Createtask
+        e.preventDefault(); 
+        toggleCreateTaskVisibility();
     };
+
+    async function logoutHandler(){
+        try {
+            const response = await axios.get('http://localhost:8000/api/v1/user/logout', 
+                {
+                    withCredentials: true
+                }
+            )
+
+            toast.success("Logout successfully");
+            navigate("/login");
+        } 
+
+        catch (error) {
+            toast.error(error.message)
+        }
+    }
 
     return (
         <div className='w-64 font-semibold fixed top-0 left-0 h-full bg-white shadow-md'>
@@ -66,7 +87,7 @@ function Sidebar({ hideSidebar, toggleCreateTaskVisibility }) { // Destructure t
                 
                 {/* Sign Out Section */}
                 <div className='flex items-center space-x-4 text-gray-600'>
-                    <a href="#" className='flex items-center gap-3'><FaSignOutAlt /> Sign out</a>
+                    <a href="#" className='flex items-center gap-3' onClick={logoutHandler}><FaSignOutAlt /> Sign out</a>
                 </div>
             </div>
         </div>

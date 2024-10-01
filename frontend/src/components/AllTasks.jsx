@@ -40,11 +40,13 @@ function AllTasks() {
     fetchAllTasks();
   });
 
+  const limit = 50;
+
   if (loading) return <div>Loading tasks...</div>;
   if (error) return <div>Error: {error}</div>;
 
   return (
-    <div className='p-4 border border-red-600'>
+    <div className='p-4'>
       <h1 className='text-2xl font-bold mb-4'>All Tasks</h1>
       {tasks.length === 0 ? (
         <p>No tasks available. Add a new task to get started!</p>
@@ -53,7 +55,7 @@ function AllTasks() {
           {tasks.map(task => (
             <div key={task._id} className='max-w-sm max-h-56 h-auto overflow-hidden shadow-md shadow-slate-300 rounded-xl p-5 bg-[#FDF3B4]'>
               <h2 className='text-xl font-semibold mb-2'>{task.title}</h2>
-              <p className='text-gray-700 mb-4'>{task.content}</p>
+              {task.content.length > limit ? <p className='text-gray-700 mb-4'>{task.content.substring(0, limit)} <a href="" className="text-blue-600">Read more</a> </p>: <p className='text-gray-700 mb-4'>{task.content}</p>}
               <div className="flex justify-between">
                 <p className='text-sm text-gray-500'>{new Date(task.createdAt).toLocaleString()}</p>
                 <MdDelete className="text-red-600 cursor-pointer" size={20} onClick={()=> deleteTask(task._id)}/>

@@ -3,6 +3,9 @@ import { RxHamburgerMenu } from 'react-icons/rx';
 import Sidebar from "./Sidebar";
 import AllTasks from "./AllTasks";
 import Createtask from "./Createtask";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import Login from "./Login";
 
 function Homepage() {
     // State to manage sidebar visibility
@@ -26,27 +29,35 @@ function Homepage() {
         setIsCreateTaskVisible(false);
     };
 
+    const accessToken = useSelector((state) => state.user.accessToken);
+
+    console.log("Access Token:-", accessToken);
+
     return (
-        <div className="flex items-center relative">
-            {/* Sidebar */}
-            {isSidebarVisible ? (
-                <Sidebar 
-                    hideSidebar={hideSidebar} 
-                    toggleCreateTaskVisibility={toggleCreateTaskVisibility} // Pass the handler as a prop
-                />
-            ) : (
-                <div onClick={hideSidebar} className="ml-5 mt-5 cursor-pointer">
-                    <RxHamburgerMenu size={20} />
+        <div className="relative">
+            {accessToken ?            
+                    <div className="flex items-center relative">
+
+                    {isSidebarVisible ? (
+                    <Sidebar 
+                        hideSidebar={hideSidebar} 
+                        toggleCreateTaskVisibility={toggleCreateTaskVisibility} // Pass the handler as a prop
+                    />
+                ) : (
+                    <div onClick={hideSidebar} className="ml-5 mt-5 cursor-pointer">
+                        <RxHamburgerMenu size={20} />
+                    </div>
+                )}
+
+
+                <div className={`flex-1 p-4 ${isSidebarVisible ? "ml-64" : "ml-20"}`}>
+                    <AllTasks />
                 </div>
-            )}
 
-            {/* Main Content */}
-            <div className={`flex-1 p-4 ${isSidebarVisible ? "ml-64" : "ml-20"}`}>
-                <AllTasks />
-            </div>
 
-            {/* Createtask Component */}
-            {isCreateTaskVisible && <Createtask onClose={hideCreateTask} />} {/* Conditionally render */}
+                {isCreateTaskVisible && <Createtask onClose={hideCreateTask} />}
+                </div>: <Login/>
+            }
         </div>
     );
 }
