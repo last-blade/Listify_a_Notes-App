@@ -73,7 +73,6 @@ function Sidebar({ hideSidebar, toggleCreateTaskVisibility }) {
                             <h1 className='cursor-pointer'>Today</h1>
                             <h1 className='cursor-pointer'>My List</h1>
                             <div>
-                                {/* Changed from <a> to <button> for better semantics */}
                                 <button 
                                     className='flex items-center gap-3 focus:outline-none' 
                                     onClick={handleAddNewList}
