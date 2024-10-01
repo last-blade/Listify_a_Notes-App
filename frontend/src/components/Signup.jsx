@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import axios from "axios";
 import { Link, useNavigate } from 'react-router-dom';
 import toast from "react-hot-toast";
+import { LuListChecks } from "react-icons/lu";
+
 
 function Signup() {
 
@@ -57,18 +59,21 @@ function Signup() {
                     <h1 className='text-3xl font-bold'>Sign up</h1>
             </div>
             <form onSubmit={submitHandler} action="" className='h-96 space-y-4 flex flex-col justify-center items-center border border-gray-400 p-10 px-14 py-24 rounded-md'>
-                <h1 className='nerko-one-regular text-4xl bg-gradient-to-r from-orange-400 via-gray-200 to-green-300 bg-clip-text text-transparent'>ListiFy</h1>
+                <div className='flex justify-center items-center'>
+                    <LuListChecks className='h-12 w-12'/>
+                    <h1 className='nerko-one-regular text-4xl font-bold ml-2'>ListiFy</h1>
+                </div>
                 <input value={user.fullname} onChange={(e) => setUser({...user, fullname: e.target.value})} type="text" className='outline-none border border-gray-400 rounded-md p-1 w-56' placeholder='Fullname'/>
                 <input value={user.email} onChange={(e) => setUser({...user, email: e.target.value})} type="email" className='outline-none border border-gray-400 rounded-md p-1 w-56' placeholder='Email'/>
                 <input value={user.password} onChange={(e) => setUser({...user, password: e.target.value})} type="password" className='outline-none border border-gray-400 rounded-md p-1 w-56' placeholder='Password'/>
                 <input value={user.confirmPassword} onChange={(e) => setUser({...user, confirmPassword: e.target.value})} type="password" className='outline-none border border-gray-400 rounded-md p-1 w-56' placeholder='Confirm password'/>
-                <input type="submit" value="Sign up" className='bg-blue-500 rounded-md w-56 p-1 font-semibold text-white cursor-pointer'/>
+                <input type="submit" value="Sign up" className='bg-black rounded-md w-56 p-1 font-semibold text-white cursor-pointer'/>
             </form>
             <div className='flex justify-center'>
                 <p>Or</p>
             </div>
             <div className='border border-gray-400 p-4 rounded-md flex justify-center items-center'>
-                <h1>Have an account? <a href="/login" className='text-[#0095F6] font-semibold'>Log in</a></h1>
+                <h1>Have an account? <a href="/login" className='text-black underline font-semibold'>Log in</a></h1>
             </div>
         </div>
     </div>

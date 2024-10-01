@@ -4,6 +4,7 @@ import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux'
 import { setAccessToken } from '../../redux/user.slice';
+import { LuListChecks } from "react-icons/lu";
 
 
 function Login() {
@@ -57,18 +58,21 @@ function Login() {
                     <h1 className='text-3xl font-bold'>Log in</h1>
             </div>
             <form onSubmit={submitHandler} action="" className='h-96 flex flex-col justify-center items-center space-y-5 border border-gray-400 p-10 px-14 py-24 rounded-md'>
-                <h1 className='nerko-one-regular text-4xl bg-gradient-to-r from-orange-400 via-gray-200 to-green-300 bg-clip-text text-transparent'>ListiFy</h1>
+                <div className='flex justify-center items-center'>
+                    <LuListChecks className='h-12 w-12'/>
+                    <h1 className='nerko-one-regular text-4xl font-bold ml-2'>ListiFy</h1>
+                </div>
                 <input value={user.email} onChange={(e) => setUser({...user, email: e.target.value})} type="email" className='outline-none border border-gray-400 rounded-md p-1 w-56' placeholder='Email'/>
                 <input value={user.password} onChange={(e) => setUser({...user, password: e.target.value})} type="password" className='outline-none border border-gray-400 rounded-md p-1 w-56' placeholder='Password'/>
-                <input type="submit" value="Log in" className='bg-blue-500 rounded-md w-56 p-1 font-semibold text-white cursor-pointer'/>
+                <input type="submit" value="Log in" className='bg-black rounded-md w-56 p-1 font-semibold text-white cursor-pointer'/>
                 <h1>____________________________________</h1>
-                <a href="" className='text-[#00376B] text-sm'>Forgot password?</a>
+                <a href="" className='text-black hover:underline text-sm'>Forgot password?</a>
             </form>
             <div className='flex justify-center'>
                 <p>Or</p>
             </div>
             <div className='border border-gray-400 p-4 rounded-md flex justify-center items-center'>
-                <h1>Don't have an account? <a href="/signup" className='text-[#0095F6] font-semibold'>Sign up</a></h1>
+                <h1>Don't have an account? <a href="/signup" className='text-black underline font-semibold'>Sign up</a></h1>
             </div>
         </div>
     </div>

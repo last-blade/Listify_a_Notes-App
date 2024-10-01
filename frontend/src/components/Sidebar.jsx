@@ -80,7 +80,7 @@ function Sidebar({ hideSidebar, toggleCreateTaskVisibility }) {
                             <div>
                                 <button 
                                     className='flex items-center gap-3 focus:outline-none' 
-                                    onClick={handleAddNewList}
+                                    
                                 >
                                     <LuPlus /> Add new list
                                 </button>
