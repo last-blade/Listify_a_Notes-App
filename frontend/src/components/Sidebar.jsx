@@ -7,10 +7,14 @@ import { LuPlus } from 'react-icons/lu';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { clearAccessToken } from '../../redux/user.slice';
 
 function Sidebar({ hideSidebar, toggleCreateTaskVisibility }) {
 
     const navigate = useNavigate();
+
+    const dispatch = useDispatch();
 
     const handleAddNewList = (e) => {
         e.preventDefault(); 
@@ -26,6 +30,7 @@ function Sidebar({ hideSidebar, toggleCreateTaskVisibility }) {
             )
 
             toast.success("Logout successfully");
+            dispatch(clearAccessToken(null));
             navigate("/login");
         } 
 
