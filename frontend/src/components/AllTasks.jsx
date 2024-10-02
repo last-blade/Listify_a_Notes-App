@@ -88,7 +88,7 @@ export default function AllTasks() {
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {tasks.map(task => (
-            <div key={task._id} className="bg-card text-card-foreground rounded-lg shadow-md overflow-hidden">
+            <div key={task._id} className="bg-card text-card-foreground rounded-lg shadow-md shadow-slate-200 overflow-hidden">
               <div className="p-4">
                 <h2 className="text-xl font-semibold mb-2">{task.title}</h2>
                 <div className="min-h-[100px] max-h-[200px] overflow-y-auto">

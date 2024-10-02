@@ -4,6 +4,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import Signup from './components/Signup'
 import Homepage from './components/Homepage'
 import { Toaster } from 'react-hot-toast';
+import Profile from './components/Profile'
 
 function App() {
 
@@ -21,6 +22,11 @@ function App() {
     {
       path: "/signup",
       element: <Signup/>
+    },
+
+    {
+      path: "/profile",
+      element: <Profile />
     }
   ])
 
