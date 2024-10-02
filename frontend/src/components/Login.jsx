@@ -38,7 +38,7 @@ function Login() {
                 }
             )
             
-            // console.log("Response:- ", response)
+            console.log("Response user:- ", response)
             // console.log("Accesstoke:- ", response.data.data.accessToken);
             dispatch(setAccessToken(response.data.data.accessToken));
             
