@@ -139,6 +139,20 @@ const logoutUser = asyncHandler(async (request, response) => {
 
 });
 
+const fetchUser = asyncHandler(async (request, response) => {
+    try {
+            const currentUser = request.user;
+            response.status(200).json(
+                new apiResponse(200, currentUser, "User fetched successfully.")
+            )
+            console.log("User:- ", currentUser)
+    } 
+    
+    catch (error) {
+        throw new apiError(500, "Something went wrong, please ensure that you are logged in.")
+    }
+})
 
 
-export {registerUser, loginUser, logoutUser};
+
+export {registerUser, loginUser, logoutUser, fetchUser};
