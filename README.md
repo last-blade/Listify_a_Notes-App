@@ -1,2 +1,2 @@
-# Listify-Notes-App
-Listify is a Notes app built with the MERN stack (MongoDB, Express.js, React, and Node.js), designed to simplify note-taking and organization. It features an intuitive interface for creating, managing, and deleting notes. The app's backend efficiently handles API requests and stores notes in MongoDB, enabling users to perform full CRUD (Create, Read, Update, Delete) operations seamlessly.
+# Listify-To-Do-App-
+"Listify" is a To-Do app built using the MERN stack (MongoDB, Express.js, React, and Node.js) that allows users to easily create, manage, and delete tasks. The app features a user-friendly interface for task input and display, with a backend that handles API requests and stores tasks in MongoDB, offering full CRUD functionality.
