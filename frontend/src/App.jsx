@@ -5,6 +5,7 @@ import Signup from './components/Signup'
 import Homepage from './components/Homepage'
 import { Toaster } from 'react-hot-toast';
 import Profile from './components/Profile'
+import Forgotpassword from './components/Forgotpassword'
 
 function App() {
 
@@ -27,6 +28,11 @@ function App() {
     {
       path: "/profile",
       element: <Profile />
+    },
+
+    {
+      path: "/forgotpassword",
+      element: <Forgotpassword />
     }
   ])
 

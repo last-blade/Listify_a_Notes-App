@@ -38,7 +38,7 @@ function Login() {
                 }
             )
             
-            console.log("Response user:- ", response)
+            // console.log("Response user:", response.data.data.user);
             // console.log("Accesstoke:- ", response.data.data.accessToken);
             dispatch(setAccessToken(response.data.data.accessToken));
             
@@ -66,7 +66,7 @@ function Login() {
                 <input value={user.password} onChange={(e) => setUser({...user, password: e.target.value})} type="password" className='outline-none border border-gray-400 rounded-md p-1 w-56' placeholder='Password'/>
                 <input type="submit" value="Log in" className='bg-black rounded-md w-56 p-1 font-semibold text-white cursor-pointer'/>
                 <h1>____________________________________</h1>
-                <a href="" className='text-black hover:underline text-sm'>Forgot password?</a>
+                <a href="/forgotpassword" className='text-black hover:underline text-sm'>Forgot password?</a>
             </form>
             <div className='flex justify-center'>
                 <p>Or</p>

@@ -1,27 +1,43 @@
-import { useState } from 'react'
+import axios from 'axios';
+import { useEffect, useState } from 'react'
 import { MdEdit, MdEmail, MdDateRange, MdNoteAdd, MdLabel, MdColorLens, MdArchive } from 'react-icons/md'
+import { FaUser } from "react-icons/fa";
+
 
 export default function Profile() {
   const [isEditing, setIsEditing] = useState(false)
 
-  function fetchUser(){
-    
+  const [user, setUser] = useState({});
+
+  async function fetchUser(){
+    const response = await axios.get('http://localhost:8000/api/v1/user/getuser', {withCredentials: true});
+    setUser(response.data.data)
+    console.log("Current user", response);
   }
 
+  useEffect(() => {
+    fetchUser();
+  }, [])
+
+
+  const totalTasks = user.allTasks ? user.allTasks.length : 0;
+  const formattedDate = user.createdAt ? new Date(user.createdAt).toISOString().split('T')[0] : "No date available";
+
   return (
+    
     <div className="max-w-4xl mx-auto mt-8 bg-white shadow-lg rounded-lg overflow-hidden">
       <div className="relative h-48 bg-gradient-to-r from-black via-gray-400 to-slate-300">
         <img
           className="absolute bottom-0 left-8 transform translate-y-1/2 w-32 h-32 rounded-full border-4 border-white shadow-lg"
-          src="/placeholder.svg?height=128&width=128"
+          src="/1077114.png"
           alt="Profile"
         />
+
       </div>
       <div className="pt-16 pb-8 px-8">
         <div className="flex justify-between items-start">
           <div>
-            <h1 className="text-3xl font-bold text-gray-800">Sarah Johnson</h1>
-            <p className="text-sm text-gray-600 mt-1">@sarahnotes</p>
+            <h1 className="text-3xl font-bold text-gray-800">{user.fullname}</h1>
           </div>
           <button
             onClick={() => setIsEditing(!isEditing)}
@@ -35,11 +51,11 @@ export default function Profile() {
         <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="flex items-center">
             <MdEmail className="text-gray-500 mr-2" />
-            <span className="text-gray-700">sarah.johnson@example.com</span>
+            <span className="text-gray-700">{user.email}</span>
           </div>
           <div className="flex items-center">
             <MdDateRange className="text-gray-500 mr-2" />
-            <span className="text-gray-700">Joined: March 10, 2023</span>
+            <span className="text-gray-700">Joined: {formattedDate}</span>
           </div>
         </div>
       </div>
@@ -48,19 +64,19 @@ export default function Profile() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           <div className="bg-white p-4 rounded-lg shadow">
             <h3 className="text-lg font-semibold text-gray-700">Total Notes</h3>
-            <p className="text-3xl font-bold text-yellow-600">127</p>
+            <p className="text-3xl font-bold text-yellow-600">{totalTasks}</p>
           </div>
           <div className="bg-white p-4 rounded-lg shadow">
             <h3 className="text-lg font-semibold text-gray-700">Labels Used</h3>
-            <p className="text-3xl font-bold text-green-600">15</p>
+            <p className="text-3xl font-bold text-green-600">0</p>
           </div>
           <div className="bg-white p-4 rounded-lg shadow">
             <h3 className="text-lg font-semibold text-gray-700">Archived Notes</h3>
-            <p className="text-3xl font-bold text-blue-600">42</p>
+            <p className="text-3xl font-bold text-blue-600">0</p>
           </div>
           <div className="bg-white p-4 rounded-lg shadow">
             <h3 className="text-lg font-semibold text-gray-700">Collaborations</h3>
-            <p className="text-3xl font-bold text-purple-600">8</p>
+            <p className="text-3xl font-bold text-purple-600">0</p>
           </div>
         </div>
       </div>

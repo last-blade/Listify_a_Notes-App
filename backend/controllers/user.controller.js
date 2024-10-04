@@ -145,7 +145,7 @@ const fetchUser = asyncHandler(async (request, response) => {
             response.status(200).json(
                 new apiResponse(200, currentUser, "User fetched successfully.")
             )
-            console.log("User:- ", currentUser)
+            // console.log("User:- ", currentUser)
     } 
     
     catch (error) {
