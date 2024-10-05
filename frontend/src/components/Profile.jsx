@@ -12,7 +12,7 @@ export default function Profile() {
   async function fetchUser(){
     const response = await axios.get('http://localhost:8000/api/v1/user/getuser', {withCredentials: true});
     setUser(response.data.data)
-    console.log("Current user", response);
+    // console.log("Current user", response);
   }
 
   useEffect(() => {

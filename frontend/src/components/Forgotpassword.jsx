@@ -20,7 +20,7 @@ export default function Forgotpassword() {
         { email, uniqueKey, password },
         { withCredentials: true }
       );
-      console.log("Response forgot:- ", response);
+      // console.log("Response forgot:- ", response);
       toast.success("Password changed successfully.");
       navigate("/login");
     } 

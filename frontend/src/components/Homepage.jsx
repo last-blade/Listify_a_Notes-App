@@ -8,30 +8,24 @@ import { useNavigate } from "react-router-dom";
 import Login from "./Login";
 
 function Homepage() {
-    // State to manage sidebar visibility
     const [isSidebarVisible, setIsSidebarVisible] = useState(true);
     
-    // State to manage Createtask visibility
     const [isCreateTaskVisible, setIsCreateTaskVisible] = useState(false);
 
-    // Handler to toggle sidebar visibility
     const hideSidebar = () => {
         setIsSidebarVisible(!isSidebarVisible);
     };
 
-    // Handler to toggle Createtask visibility
     const toggleCreateTaskVisibility = () => {
         setIsCreateTaskVisible(prevState => !prevState);
     };
 
-    // Optional: Handler to explicitly hide Createtask (useful for closing)
     const hideCreateTask = () => {
         setIsCreateTaskVisible(false);
     };
 
     const accessToken = useSelector((state) => state.user.accessToken);
 
-    console.log("Access Token:-", accessToken);
 
     return (
         <div className="relative">
@@ -41,7 +35,7 @@ function Homepage() {
                     {isSidebarVisible ? (
                     <Sidebar 
                         hideSidebar={hideSidebar} 
-                        toggleCreateTaskVisibility={toggleCreateTaskVisibility} // Pass the handler as a prop
+                        toggleCreateTaskVisibility={toggleCreateTaskVisibility}
                     />
                 ) : (
                     <div onClick={hideSidebar} className="ml-5 mt-5 cursor-pointer">

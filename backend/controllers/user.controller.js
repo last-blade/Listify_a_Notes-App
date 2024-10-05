@@ -22,7 +22,7 @@ const generateAccessTokenAndRefreshToken = async (userId) => {
 
 const registerUser = asyncHandler( async (request, response) => {
     const {email, fullname, password} = request.body;
-    console.log("email:- ", email);
+    // console.log("email:- ", email);
     // check kar rahe hain ki saare fields bhare huye ho user dwara like email, password, etc. yeh sab bahara hona chahiye
     /*if(fullname === ""){
         throw new apiError(400, "Fullname is required.");        // 'apiError' naam se file banayi hai utils ke folder mein 
@@ -79,7 +79,7 @@ const loginUser = asyncHandler(async (request, response) => {
     if password correct-> show error
     if user not exist-> return error
     */
-    console.log("body:- ",request.body);
+    // console.log("body:- ",request.body);
     const {email, password} = request.body;
 
     if(!(email && password)){
@@ -90,7 +90,7 @@ const loginUser = asyncHandler(async (request, response) => {
         $or: [{email}]
     })
 
-    console.log("email:- ", email)
+    // console.log("email:- ", email)
 
     if(!user){
         throw new apiError(404, "User not found.")
