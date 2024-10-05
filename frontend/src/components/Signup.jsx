@@ -41,6 +41,7 @@ function Signup() {
                 { withCredentials: true }
             );
             console.log("Response:-", response);
+            toast.success("Unique key is generated to change the password, login to see your Unique Key.")
             toast.success("Registration successful!");
             navigate("/login");
         } 

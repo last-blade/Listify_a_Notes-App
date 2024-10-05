@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react'
-import { MdEdit, MdEmail, MdDateRange, MdNoteAdd, MdLabel, MdColorLens, MdArchive } from 'react-icons/md'
+import { MdEdit, MdEmail, MdDateRange, MdVpnKey, MdNoteAdd, MdLabel, MdColorLens, MdArchive } from 'react-icons/md'
 import { FaUser } from "react-icons/fa";
 
 
@@ -22,6 +22,7 @@ export default function Profile() {
 
   const totalTasks = user.allTasks ? user.allTasks.length : 0;
   const formattedDate = user.createdAt ? new Date(user.createdAt).toISOString().split('T')[0] : "No date available";
+  const uniqueKey = user.uniqueKey;
 
   return (
     
@@ -48,7 +49,7 @@ export default function Profile() {
           </button>
         </div>
         <p className="mt-4 text-gray-700">Avid note-taker | Organizing thoughts one note at a time</p>
-        <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4">
           <div className="flex items-center">
             <MdEmail className="text-gray-500 mr-2" />
             <span className="text-gray-700">{user.email}</span>
@@ -56,6 +57,11 @@ export default function Profile() {
           <div className="flex items-center">
             <MdDateRange className="text-gray-500 mr-2" />
             <span className="text-gray-700">Joined: {formattedDate}</span>
+          </div>
+
+          <div className="flex items-center">
+            <MdVpnKey className="text-gray-500 mr-2" />
+            <span className="text-gray-700">Unique Key: {uniqueKey}</span>
           </div>
         </div>
       </div>

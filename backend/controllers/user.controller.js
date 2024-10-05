@@ -153,6 +153,39 @@ const fetchUser = asyncHandler(async (request, response) => {
     }
 })
 
+const forgotUserPassword = asyncHandler(async (request, response) => {
+    const { email, uniqueKey, password } = request.body;
+
+    const user = await User.findOne({ email }).select("-password -refreshToken");
+
+    if (!user) {
+        throw new apiError(404, "User not found with this email.");
+    }
+
+    if (uniqueKey != user.uniqueKey) {
+        throw new apiError(400, "Invalid unique key.");
+    }
+
+    user.password = password;
+
+    try {
+        await user.save();
+    } 
+    
+    catch (error) {
+        throw new apiError(500, "Error saving the password.");
+    }
+
+    const safeUser = {
+        _id: user._id,
+        fullname: user.fullname,
+        email: user.email,
+    };
 
 
-export {registerUser, loginUser, logoutUser, fetchUser};
+    return response.status(200).json(new apiResponse(200, { user: safeUser }, "Password updated successfully."));
+});
+
+
+
+export {registerUser, loginUser, logoutUser, fetchUser, forgotUserPassword};
